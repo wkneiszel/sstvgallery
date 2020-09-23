@@ -1,0 +1,11 @@
+{% if latest_images_list %}
+    <ul>
+    {% for image in latest_images_list %}
+        <li>
+            <a href="/gallery/{{ image.id }}"><img src="{{image.photo}}" alt="{{image.id}}"></a>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No images are available.</p>
+{% endif %}
