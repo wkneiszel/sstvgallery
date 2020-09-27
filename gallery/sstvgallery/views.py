@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 from django.template import loader
 from .models import Image, Comment
@@ -8,7 +8,12 @@ def index(request):
     return HttpResponse ("You've reached the site, hooray!")
 
 def detail(request, image_id):
-    return HttpResponse ("You've reached the detail page for image %s!" %image_id)
+    image = get_object_or_404(Image, pk=image_id)
+    template = loader.get_template('sstvgallery/detail.html')
+    context = {
+        'image':image,
+    }
+    return HttpResponse (template.render(context, request))
 
 
 def gallery(request):
