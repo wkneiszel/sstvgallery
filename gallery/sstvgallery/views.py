@@ -1,7 +1,9 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 from django.template import loader
+from rest_framework import viewsets
 from .models import Image, Comment
+from .serializers import ImageSerializer
 # Create your views here.
 
 def index(request):
@@ -23,3 +25,7 @@ def gallery(request):
         'latest_images_list': latest_images_list,
     }
     return HttpResponse(template.render(context, request))
+
+class imageViewSet(viewsets.ModelViewSet):
+    queryset = Image.objects.all().order_by('receive_date')
+    serializer_class = ImageSerializer
