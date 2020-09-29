@@ -3,5 +3,12 @@ from django.contrib import admin
 from .models import Image, Comment
 
 # Register your models here.
-admin.site.register(Image)
-admin.site.register(Comment)
+class CommentInline(admin.TabularInline):
+    model = Comment
+    extra = 0
+
+class ImageAdmin(admin.ModelAdmin):
+    fields = ['photo', 'receive_date']
+    inlines = [CommentInline]
+
+admin.site.register(Image, ImageAdmin)

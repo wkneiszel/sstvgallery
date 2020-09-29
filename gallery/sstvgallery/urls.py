@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register(r'images', views.imageViewSet)
+router.register(r'images', views.ImageViewSet)
 
 
 urlpatterns = [

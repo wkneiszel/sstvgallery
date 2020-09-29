@@ -1,3 +1,9 @@
 {% load static %}
 <h1>Image Received on {{ image.receive_date }}</h1>
 <img src = '{{ image.photo.url }}' alt='{{ image.id }}'>
+
+<ul>
+    {% for comment in comments %}
+        <li>{{comment.commentor}} ({{comment.comment_date}}): {{comment.comment_text}}</li>
+    {% endfor %}
+</ul>
