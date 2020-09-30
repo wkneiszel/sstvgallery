@@ -2,6 +2,15 @@
 <h1>Image Received on {{ image.receive_date }}</h1>
 <img src = '{{ image.photo.url }}' alt='{{ image.id }}'>
 
+<br><br>
+
+<form action="{% url 'comment' image.id %}" method="post">
+    {% csrf_token %}
+    <input type="text" maxlength="50" name="commentor" id="commentor_name">
+    <input type="text" name="comment_text" id="comment">
+    <input type="submit" value="Submit Comment">
+</form>
+
 <ul>
     {% for comment in comments %}
         <li>{{comment.commentor}} ({{comment.comment_date}}): {{comment.comment_text}}</li>
