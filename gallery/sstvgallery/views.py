@@ -27,12 +27,14 @@ def detail(request, image_id):
 
 def comment(request, image_id):
     image = get_object_or_404(Image, pk=image_id)
+    comments = image.comment_set.order_by('-comment_date')
     if request.POST['comment_text']:
         Comment.objects.create(image=image, commentor=(request.POST['commentor'] or "Anonymous"), comment_text=request.POST['comment_text'], comment_date=datetime.datetime.now())
     else:
         return render(request, 'sstvgallery/detail.html', {
             'image': image,
-            'error_message': "You didn't enter a comment.",
+            'comments': comments,
+            'error_message': "Comment text cannot be empty",
         })
 
     return HttpResponseRedirect(reverse('detail', args=(image.id,)))
