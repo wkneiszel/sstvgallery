@@ -16,4 +16,5 @@ urlpatterns = [
     path('<int:image_id>/results', views.results, name='results'),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('about/', views.about, name='about'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

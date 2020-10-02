@@ -13,8 +13,10 @@ from django.urls import reverse
 from decimal import Decimal
 # Create your views here.
 
-def index(request):
-    return HttpResponse ("You've reached the site, hooray!")
+def about(request):
+    template = loader.get_template('sstvgallery/about.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
 
 def detail(request, image_id):
     image = get_object_or_404(Image, pk=image_id)
@@ -24,7 +26,7 @@ def detail(request, image_id):
         'image':image,
         'comments':comments,
     }
-    return HttpResponse (template.render(context, request))
+    return HttpResponse(template.render(context, request))
 
 def comment(request, image_id):
     image = get_object_or_404(Image, pk=image_id)

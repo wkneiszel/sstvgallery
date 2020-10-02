@@ -1,14 +1,17 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'sstvgallery/style.css' %}">
 
+<h1>SSTV Gallery</h1>
+
+<div class="topnav">
+    <a class="active" href="{% url 'gallery' %}">Gallery</a>
+    <a href="{% url 'about' %}">About</a>
+</div>
+
 {% if latest_images_list %}
-    <ul>
-    {% for image in latest_images_list %}
-        <li>
-            <a href="{% url 'detail' image.id %}"><img src="{{ image.photo.url }}" alt="{{image.id}}"></a>
-        </li>
+    {% for image in latest_images_list %}   
+        <a href="{% url 'detail' image.id %}"><img class="gallery_img" src="{{ image.photo.url }}" alt="{{image.id}}"></a>
     {% endfor %}
-    </ul>
 {% else %}
     <p>No images are available.</p>
 {% endif %}

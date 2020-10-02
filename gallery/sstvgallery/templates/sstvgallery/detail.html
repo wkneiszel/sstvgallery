@@ -2,6 +2,13 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'sstvgallery/style.css' %}">
 
+<h1>SSTV Gallery</h1>
+
+<div class="topnav">
+    <a href="{% url 'gallery' %}">Gallery</a>
+    <a href="{% url 'about' %}">About</a>
+</div>
+
 <h1>Image Received on {{ image.receive_date }}</h1>
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
@@ -15,14 +22,14 @@
 
 <form action="{% url 'vote' image.id %}" method="post">
     {% csrf_token %}
-    I give this image <input type="number" id="rating" name="rating" min="1" max="10">/10
+    I give this image <input type="number" id="rating" name="rating" min="1" max="10" placeholder="Rating...">/10
     <input type="submit" value="Vote">
 </form>
 
 <form action="{% url 'comment' image.id %}" method="post">
     {% csrf_token %}
-    Name: <input type="text" maxlength="50" name="commentor" id="commentor_name"><br>
-    <input type="text" name="comment_text" id="comment">
+    <input type="text" maxlength="50" name="commentor" id="commentor_name" placeholder="Name...">
+    <input type="text" name="comment_text" id="comment" placeholder="Comment text...">
     <input type="submit" value="Submit Comment">
 </form>
 
