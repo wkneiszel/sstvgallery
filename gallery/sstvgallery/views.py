@@ -10,6 +10,7 @@ import datetime
 from rest_framework.exceptions import ParseError
 import json
 from django.urls import reverse
+from decimal import Decimal
 # Create your views here.
 
 def index(request):
@@ -36,8 +37,33 @@ def comment(request, image_id):
             'comments': comments,
             'error_message': "Comment text cannot be empty",
         })
-
     return HttpResponseRedirect(reverse('detail', args=(image.id,)))
+
+def vote(request, image_id):
+    image = get_object_or_404(Image, pk=image_id)
+    comments = image.comment_set.order_by('-comment_date')
+    if request.POST['rating']:
+        image.votes = image.votes + 1
+        rating = Decimal(request.POST['rating'])
+        image.rating = (image.rating*(image.votes-1)+rating)/image.votes
+        image.save()
+    else:
+        return render(request, 'sstvgallery/detail.html',{
+            'image': image,
+            'comments': comments,
+            'error_message': "Rating cannot be empty",
+        })
+    return HttpResponseRedirect(reverse('results', args=(image.id,)))
+
+def results(request, image_id):
+    image = get_object_or_404(Image, pk=image_id)
+    comments = image.comment_set.order_by('-comment_date')
+    template = loader.get_template('sstvgallery/results.html')
+    context = {
+        'image':image,
+        'comments':comments,
+    }
+    return HttpResponse (template.render(context, request))
 
 def gallery(request):
     latest_images_list = Image.objects.order_by('-receive_date')[:5]

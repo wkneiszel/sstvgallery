@@ -8,7 +8,7 @@ class CommentInline(admin.TabularInline):
     extra = 0
 
 class ImageAdmin(admin.ModelAdmin):
-    fields = ['photo', 'receive_date']
+    fields = ['photo', 'receive_date', 'votes', 'rating']
     inlines = [CommentInline]
 
 admin.site.register(Image, ImageAdmin)
