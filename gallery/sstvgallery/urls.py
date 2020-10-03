@@ -10,6 +10,7 @@ router.register(r'images', views.ImageViewSet)
 
 urlpatterns = [
     path('', views.gallery, name='gallery'),
+    path('sort', views.sort, name='sort'),
     path('<int:image_id>/', views.detail, name='detail'),
     path('<int:image_id>/comment', views.comment, name='comment'),
     path('<int:image_id>/vote', views.vote, name='vote'),

@@ -8,6 +8,19 @@
     <a href="{% url 'about' %}">About</a>
 </div>
 
+<form action={% url 'sort' %}>
+    <label for="sorting">Sort by</label>
+    <select id="sorting" name="sorting">
+        <option value="newest">Date Received: Newest First</option>
+        <option value="oldest">Date Received: Oldest First</option>
+        <option value="top">Rating: Highest First</option>
+        <option value="bottom">Rating: Lowest First</option>
+        <option value="most_comments">Number of Comments: Highest First</option>
+        <option value="least_comments">Number of Comments: Lowest First</option>
+    </select>
+    <input type="submit">
+</form>
+
 {% if latest_images_list %}
     {% for image in latest_images_list %}   
         <a href="{% url 'detail' image.id %}"><img class="gallery_img" src="{{ image.photo.url }}" alt="{{image.id}}"></a>

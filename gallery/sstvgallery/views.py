@@ -11,6 +11,7 @@ from rest_framework.exceptions import ParseError
 import json
 from django.urls import reverse
 from decimal import Decimal
+from django.db.models import Count
 # Create your views here.
 
 def about(request):
@@ -74,6 +75,29 @@ def gallery(request):
         'latest_images_list': latest_images_list,
     }
     return HttpResponse(template.render(context, request))
+
+def sort(request):
+    sort_by = request.GET['sorting']
+    if sort_by == 'newest':
+        latest_images_list = Image.objects.order_by('-receive_date')[:5]
+    elif sort_by == 'oldest': 
+        latest_images_list = Image.objects.order_by('receive_date')[:5]
+    elif sort_by == 'top': 
+        latest_images_list = Image.objects.order_by('rating')[:5]
+    elif sort_by == 'bottom': 
+        latest_images_list = Image.objects.order_by('-rating')[:5]
+    elif sort_by == 'most_comments': 
+        latest_images_list = Image.objects.all().annotate(num_comments=Count('comment')).order_by('-num_comments')
+    elif sort_by == 'least_comments': 
+        latest_images_list = Image.objects.all().annotate(num_comments=Count('comment')).order_by('num_comments')
+    else:
+        latest_images_list = Image.objects.order_by('-receive_date')[:5]
+    template = loader.get_template('sstvgallery/gallery.html')
+    context = {
+        'latest_images_list': latest_images_list,
+    }
+    return HttpResponse(template.render(context, request))
+
 
 class ImageViewSet(viewsets.ModelViewSet):
     queryset = Image.objects.all().order_by('receive_date')
