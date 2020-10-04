@@ -78,24 +78,30 @@ def gallery(request):
 
 def sort(request):
     sort_by = request.GET['sorting']
+    images_per_page = int(request.GET['images_per_page'])
+    date_start = request.GET['date_start'] or '1999-04-11'
+    date_end = request.GET['date_end'] or '3000-01-01'
     if sort_by == 'newest':
-        latest_images_list = Image.objects.order_by('-receive_date').all()
+        latest_images_list = Image.objects.order_by('-receive_date').filter(receive_date__range=[date_start, date_end])[:images_per_page]
     elif sort_by == 'oldest': 
-        latest_images_list = Image.objects.order_by('receive_date').all()
+        latest_images_list = Image.objects.order_by('receive_date').filter(receive_date__range=[date_start, date_end])[:images_per_page]
     elif sort_by == 'top': 
-        latest_images_list = Image.objects.order_by('-rating').all()
+        latest_images_list = Image.objects.order_by('-rating').filter(receive_date__range=[date_start, date_end])[:images_per_page]
     elif sort_by == 'bottom': 
-        latest_images_list = Image.objects.order_by('rating').all()
+        latest_images_list = Image.objects.order_by('rating').filter(receive_date__range=[date_start, date_end])[:images_per_page]
     elif sort_by == 'most_comments': 
-        latest_images_list = Image.objects.all().annotate(num_comments=Count('comment')).order_by('-num_comments')
+        latest_images_list = Image.objects.all().annotate(num_comments=Count('comment')).order_by('-num_comments').filter(receive_date__range=[date_start, date_end])[:images_per_page]
     elif sort_by == 'least_comments': 
-        latest_images_list = Image.objects.all().annotate(num_comments=Count('comment')).order_by('num_comments')
+        latest_images_list = Image.objects.all().annotate(num_comments=Count('comment')).order_by('num_comments').filter(receive_date__range=[date_start, date_end])[:images_per_page]
     else:
-        latest_images_list = Image.objects.order_by('-receive_date').all()
+        latest_images_list = Image.objects.order_by('-receive_date').filter(receive_date__range=[date_start, date_end])[:images_per_page]
     template = loader.get_template('sstvgallery/gallery.html')
     context = {
         'latest_images_list': latest_images_list,
         'sorting': sort_by,
+        'images_per_page': images_per_page,
+        'date_start': date_start,
+        'date_end': date_end,
     }
     return HttpResponse(template.render(context, request))
 
