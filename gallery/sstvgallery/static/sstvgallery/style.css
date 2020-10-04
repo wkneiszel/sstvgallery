@@ -1,12 +1,31 @@
 html {
     font-family: 'Helvetica';
-    background-color: beige;
+    background-color: #ffe6a7;
+    color: #432818;
+}
+
+body{
+    max-width: 1296px;
+    margin: 0 auto;
+    padding: .5em 20px;
 }
 
 img {
-    padding-top: 8px;
+    padding-top: .5em;
     box-shadow: 0 8px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
+}
+
+h1{
+    color: #6f1d1b
+}
+
+h2{
+    color: #6f1d1b
+}
+
+p{
+    color: #432818
 }
 
 .gallery_img:hover {
@@ -14,34 +33,54 @@ img {
 }
 
 input[type=text] {
-    width: 20%;
-    padding: 12px 20px;
-    margin: 8px 0;
+    width: 100%;
+    max-width: 1000px;
+    padding: 4px 10px;
+    margin: .5em 0;
     box-sizing: border-box;
 }
 
 input[type=number] {
-    width: 6em;
-    margin: 8px 0;
+    width: 8em;
+    padding: 4px 10px;
+    margin: .5em 0;
     box-sizing: border-box;
 }
 
 input[type=submit]{
-    padding: 12px 20px;
-    margin: 8px 0;
+    padding: 4px 10px;
+    margin: .5em 0;
     box-sizing: border-box;
 }
 
+select{
+    padding: 4px 10px;
+    margin: .5em 0;
+    box-sizing: border-box;
+}
+
+#commentor_name{
+    width: 8em;
+}
+
+.comment{
+    background-color: white;
+    box-shadow: 0 8px 8px 0 rgba(0,0,0,0.2);
+    padding: 4px 10px;
+    margin: .5em 0 0 2em;
+}
+
+/*Navbar CSS from w3schools*/
 /* Add a black background color to the top navigation */
 .topnav {
-    background-color: #201c20;
+    background-color: #432818;
     overflow: hidden;
 }
 
 /* Style the links inside the navigation bar */
 .topnav a {
     float: left;
-    color: #f2f2f2;
+    color: #ffe6a7;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -50,12 +89,12 @@ input[type=submit]{
 
 /* Change the color of links on hover */
 .topnav a:hover {
-    background-color: #b1b3aa;
-    color: black;
+    background-color: #99582a;
+    color: #ffe6a7;
 }
 
 /* Add a color to the active/current link */
 .topnav a.active {
-    background-color: #85752d;
-    color: white;
+    background-color: #bb9457;
+    color: #6f1d1b;
 }

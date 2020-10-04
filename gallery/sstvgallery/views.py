@@ -69,7 +69,7 @@ def results(request, image_id):
     return HttpResponse (template.render(context, request))
 
 def gallery(request):
-    latest_images_list = Image.objects.order_by('-receive_date')[:5]
+    latest_images_list = Image.objects.order_by('-receive_date').all()
     template = loader.get_template('sstvgallery/gallery.html')
     context = {
         'latest_images_list': latest_images_list,
@@ -79,19 +79,19 @@ def gallery(request):
 def sort(request):
     sort_by = request.GET['sorting']
     if sort_by == 'newest':
-        latest_images_list = Image.objects.order_by('-receive_date')[:5]
+        latest_images_list = Image.objects.order_by('-receive_date').all()
     elif sort_by == 'oldest': 
-        latest_images_list = Image.objects.order_by('receive_date')[:5]
+        latest_images_list = Image.objects.order_by('receive_date').all()
     elif sort_by == 'top': 
-        latest_images_list = Image.objects.order_by('-rating')[:5]
+        latest_images_list = Image.objects.order_by('-rating').all()
     elif sort_by == 'bottom': 
-        latest_images_list = Image.objects.order_by('rating')[:5]
+        latest_images_list = Image.objects.order_by('rating').all()
     elif sort_by == 'most_comments': 
         latest_images_list = Image.objects.all().annotate(num_comments=Count('comment')).order_by('-num_comments')
     elif sort_by == 'least_comments': 
         latest_images_list = Image.objects.all().annotate(num_comments=Count('comment')).order_by('num_comments')
     else:
-        latest_images_list = Image.objects.order_by('-receive_date')[:5]
+        latest_images_list = Image.objects.order_by('-receive_date').all()
     template = loader.get_template('sstvgallery/gallery.html')
     context = {
         'latest_images_list': latest_images_list,
@@ -115,6 +115,6 @@ class ImageViewSet(viewsets.ModelViewSet):
             file = request.data['image']
         except KeyError:
             raise ParseError('Image file missing from request')
-        image = Image.objects.create(photo=file, receive_date=datetime.datetime.now())
+        Image.objects.create(photo=file, receive_date=datetime.datetime.now())
         return HttpResponse(json.dumps({'message':'image upload success'}), status=200)
 

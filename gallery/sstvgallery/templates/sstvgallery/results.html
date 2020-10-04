@@ -9,7 +9,7 @@
     <a href="{% url 'about' %}">About</a>
 </div>
 
-<h1>Image Received on {{ image.receive_date }}</h1>
+<h2>Image Received on {{ image.receive_date }}</h2>
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
 <img src = '{{ image.photo.url }}' alt='{{ image.id }}'>
@@ -24,8 +24,6 @@
     <input type="submit" value="Submit Comment">
 </form>
 
-<ul>
-    {% for comment in comments %}
-        <li>{{comment.commentor}} ({{comment.comment_date}}): {{comment.comment_text}}</li>
-    {% endfor %}
-</ul>
+{% for comment in comments %}
+    <div class="comment"><strong>{{comment.commentor}}</strong> <em>({{comment.comment_date}})</em>: {{comment.comment_text}}</div>
+{% endfor %}
