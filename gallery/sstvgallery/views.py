@@ -83,9 +83,9 @@ def sort(request):
     elif sort_by == 'oldest': 
         latest_images_list = Image.objects.order_by('receive_date')[:5]
     elif sort_by == 'top': 
-        latest_images_list = Image.objects.order_by('rating')[:5]
-    elif sort_by == 'bottom': 
         latest_images_list = Image.objects.order_by('-rating')[:5]
+    elif sort_by == 'bottom': 
+        latest_images_list = Image.objects.order_by('rating')[:5]
     elif sort_by == 'most_comments': 
         latest_images_list = Image.objects.all().annotate(num_comments=Count('comment')).order_by('-num_comments')
     elif sort_by == 'least_comments': 
@@ -95,6 +95,7 @@ def sort(request):
     template = loader.get_template('sstvgallery/gallery.html')
     context = {
         'latest_images_list': latest_images_list,
+        'sorting': sort_by,
     }
     return HttpResponse(template.render(context, request))
 

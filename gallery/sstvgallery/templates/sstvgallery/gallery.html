@@ -8,15 +8,17 @@
     <a href="{% url 'about' %}">About</a>
 </div>
 
+
+
 <form action={% url 'sort' %}>
     <label for="sorting">Sort by</label>
     <select id="sorting" name="sorting">
-        <option value="newest">Date Received: Newest First</option>
-        <option value="oldest">Date Received: Oldest First</option>
-        <option value="top">Rating: Highest First</option>
-        <option value="bottom">Rating: Lowest First</option>
-        <option value="most_comments">Number of Comments: Highest First</option>
-        <option value="least_comments">Number of Comments: Lowest First</option>
+        <option value="newest" {% if sorting == 'newest' %} selected {% endif %}>Date Received: Newest First</option>
+        <option value="oldest" {% if sorting == 'oldest' %} selected {% endif %}>Date Received: Oldest First</option>
+        <option value="top" {% if sorting == 'top' %} selected {% endif %}>Rating: Highest First</option>
+        <option value="bottom" {% if sorting == 'bottom' %} selected {% endif %}>Rating: Lowest First</option>
+        <option value="most_comments" {% if sorting == 'most_comments' %} selected {% endif %}>Number of Comments: Highest First</option>
+        <option value="least_comments" {% if sorting == 'least_comments' %} selected {% endif %}>Number of Comments: Lowest First</option>
     </select>
     <input type="submit">
 </form>
