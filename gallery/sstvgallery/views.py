@@ -77,8 +77,8 @@ def gallery(request):
     return HttpResponse(template.render(context, request))
 
 def sort(request):
-    sort_by = request.GET['sorting']
-    images_per_page = int(request.GET['images_per_page'])
+    sort_by = request.GET['sorting'] or 'newest'
+    images_per_page = int(request.GET['images_per_page']) or 10
     date_start = request.GET['date_start'] or '1999-04-11'
     date_end = request.GET['date_end'] or '3000-01-01'
     if sort_by == 'newest':

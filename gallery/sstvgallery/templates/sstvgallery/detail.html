@@ -12,7 +12,7 @@
 <h2>Image Received on {{ image.receive_date }}</h2>
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<img src = '{{ image.photo.url }}' alt='{{ image.id }}'>
+<img class = 'detail_img' src = '{{ image.photo.url }}' alt='{{ image.id }}'>
 
 {% if image.votes %}
 <p>Rating : {{ image.rating }}/10</p>

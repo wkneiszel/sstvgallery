@@ -7,5 +7,16 @@
     <a href="{% url 'gallery' %}">Gallery</a>
     <a class="active" href="{% url 'about' %}">About</a>
 </div>
-
-<p>This is my great app. It's so great.</p>
+<h2>A Gallery of User-Submitted Images, Uploaded by Radio</h2>
+<div class="about">
+    <p>This is my SSTV Gallery. It is a system consisting of a web server and a computer-controlled VHF radio station which can receive images transmitted over the air using the <a href="https://en.wikipedia.org/wiki/Slow-scan_television">Robot36 SSTV mode</a>. Anyone can upload an image to the site by finding the receiver and transmitting a properly encoded image at the frequency 145.500 MHz. Below is a diagram of how the system functions.</p>
+    <img src="{% static 'sstvgallery/diagram.png' %}">
+    <p>Made using:</p>
+    <ul>
+        <li><a href="https://www.djangoproject.com/">Django: The web framework for perfectionists with deadlines</a></li>
+        <li><a href="https://github.com/xdsopl/robot36">Robot36, a program written in C for encoding and decoding SSTV Images</a></li>
+        <li><a href="https://ffmpeg.org/">FFmpeg</a></li>
+    </ul>
+    <p>I will be updating the site with the receiver's location. I may in the future have multiple receivers at various locations if possible.</p>
+    <p>Feel free to contact me at <a href="mailto:wilson@kneiszel.com">wilson@kneiszel.com</a> with questions or feedback.</p>
+</div>
