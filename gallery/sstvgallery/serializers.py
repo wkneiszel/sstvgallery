@@ -2,11 +2,6 @@ from rest_framework import serializers
 from .models import Image
 from datetime import datetime
 
-#class ImageSerializer(serializers.HyperlinkedModelSerializer):
-#    class Meta:
-#        model = Image
-#        fields = ('photo', 'receive_date')
-
 class ImageSerializer(serializers.Serializer):
     photo = serializers.ImageField(required=True)
     receive_date = serializers.DateTimeField(read_only=True)
