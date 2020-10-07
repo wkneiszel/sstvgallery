@@ -12,6 +12,7 @@ import json
 from django.urls import reverse
 from decimal import Decimal
 from django.db.models import Count
+import random
 # Create your views here.
 
 def about(request):
@@ -116,11 +117,9 @@ class ImageViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(recent_image)
         return Response(serializer.data)
 
-    def post(self, request):
-        try:
-            file = request.data['image']
-        except KeyError:
-            raise ParseError('Image file missing from request')
-        Image.objects.create(photo=file, receive_date=datetime.datetime.now())
-        return HttpResponse(json.dumps({'message':'image upload success'}), status=200)
-
+    @action(detail=False)
+    def random(self, request):
+        images = Image.objects.all()
+        random_image = random.choice(images)
+        serializer = self.get_serializer(random_image)
+        return Response(serializer.data)
