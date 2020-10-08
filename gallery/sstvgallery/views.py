@@ -90,7 +90,6 @@ def sort(request):
     date_start = request.GET['date_start'] or '1999-04-11'
     date_end = request.GET['date_end'] or '3000-01-01'
     page = request.GET['page'] or 1
-    #page = int(request.GET['page'])
     if sort_by == 'newest':
         image_list = Image.objects.order_by('-receive_date').filter(receive_date__range=[date_start, date_end]).all()
     elif sort_by == 'oldest': 
