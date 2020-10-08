@@ -8,8 +8,6 @@
     <a href="{% url 'about' %}">About</a>
 </div>
 
-
-
 <form action={% url 'sort' %}>
     <label for="sorting">Sort by</label>
     <select id="sorting" name="sorting">
@@ -23,9 +21,9 @@
 
     <label for="images_per_page">Images per page</label>
     <select id="images_per_page" name="images_per_page">
-        <option value=10 {% if images_per_page == 10 %} selected {% endif %}>10</option>
-        <option value=20 {% if images_per_page == 20 %} selected {% endif %}>20</option>
-        <option value=40 {% if images_per_page == 40 %} selected {% endif %}>40</option>
+        <option value=12 {% if images_per_page == 12 %} selected {% endif %}>12</option>
+        <option value=24 {% if images_per_page == 24 %} selected {% endif %}>24</option>
+        <option value=48 {% if images_per_page == 48 %} selected {% endif %}>48</option>
     </select>
     
     <label for="date_start">Images after</label>
@@ -34,13 +32,39 @@
     <label for="date_end">and before</label>
     <input type="date" id="date_end" name="date_end" {% if date_end < '2999-01-01' %} value={{date_end}} {%endif%}>
 
+    <input type="hidden" value={{ image_page.number }} id="page" name="page">
+
     <input type="submit">
 </form>
 
-{% if latest_images_list %}
-    {% for image in latest_images_list %}   
+{% if image_page %}
+    {% for image in image_page.object_list %}   
         <a href="{% url 'detail' image.id %}"><img class="gallery_img" src="{{ image.photo.url }}" alt="{{image.id}}"></a>
     {% endfor %}
 {% else %}
     <p>No images are available.</p>
+{% endif %}
+
+<br>
+<!--I referenced https://simpleisbetterthancomplex.com/tutorial/2016/08/03/how-to-paginate-with-django.html to write this pagination code-->
+{% if image_page.has_other_pages %}
+    <div class="pagination">
+        {% if image_page.has_previous %}
+        <a href="{% url 'sort' %}?sorting={{sorting}}&images_per_page={{images_per_page}}&date_start={{date_start}}&date_end={{date_end}}&page={{ image_page.previous_page_number }}">&laquo;</a>
+    {% else %}
+        <a href="#">&laquo;</a>
+    {% endif %}
+    {% for i in image_page.paginator.page_range %}
+      {% if image_page.number == i %}
+        <a class="active" href="#">{{ i }} </a>
+      {% else %}
+        <a href="{% url 'sort' %}?sorting={{sorting}}&images_per_page={{images_per_page}}&date_start={{date_start}}&date_end={{date_end}}&page={{ i }}">{{ i }}</a>
+      {% endif %}
+    {% endfor %}
+    {% if image_page.has_next %}
+        <a href="{% url 'sort' %}?sorting={{sorting}}&images_per_page={{images_per_page}}&date_start={{date_start}}&date_end={{date_end}}&page={{ image_page.next_page_number }}">&raquo;</a>
+    {% else %}
+        <a href="#">&raquo;</a>
+    {% endif %}
+  </div>
 {% endif %}

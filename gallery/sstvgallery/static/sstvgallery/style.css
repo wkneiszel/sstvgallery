@@ -84,7 +84,7 @@ select{
     margin: .5em 0 0 2em;
 }
 
-/*Navbar CSS from w3schools*/
+/*Navbar and pagination CSS from w3schools*/
 /* Add a black background color to the top navigation */
 .topnav {
     background-color: #432818;
@@ -111,4 +111,24 @@ select{
 .topnav a.active {
     background-color: #bb9457;
     color: #6f1d1b;
+}
+
+.pagination {
+    display: inline-block;
+    padding-top: .5em;
+}
+  
+.pagination a {
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+  
+.pagination a.active {
+    background-color: #bb9457;
+    color: #6f1d1b;
+}
+  
+.pagination a:hover:not(.active) {
+    background-color: #99582a;
 }

@@ -13,6 +13,7 @@ from django.urls import reverse
 from decimal import Decimal
 from django.db.models import Count
 import random
+from django.core.paginator import Paginator
 # Create your views here.
 
 def about(request):
@@ -70,35 +71,47 @@ def results(request, image_id):
     return HttpResponse (template.render(context, request))
 
 def gallery(request):
-    latest_images_list = Image.objects.order_by('-receive_date').all()
+    image_list = Image.objects.order_by('-receive_date').all()
+    paginator = Paginator(image_list, 12)
+    image_page = paginator.get_page(1)
     template = loader.get_template('sstvgallery/gallery.html')
     context = {
-        'latest_images_list': latest_images_list,
+        'image_page': image_page,
+        'sorting': "newest",
+        'images_per_page': "12",
+        'date_start': "",
+        'date_end': "",
     }
     return HttpResponse(template.render(context, request))
 
 def sort(request):
     sort_by = request.GET['sorting'] or 'newest'
-    images_per_page = int(request.GET['images_per_page']) or 10
+    images_per_page = int(request.GET['images_per_page'])
     date_start = request.GET['date_start'] or '1999-04-11'
     date_end = request.GET['date_end'] or '3000-01-01'
+    page = request.GET['page'] or 1
+    #page = int(request.GET['page'])
     if sort_by == 'newest':
-        latest_images_list = Image.objects.order_by('-receive_date').filter(receive_date__range=[date_start, date_end])[:images_per_page]
+        image_list = Image.objects.order_by('-receive_date').filter(receive_date__range=[date_start, date_end]).all()
     elif sort_by == 'oldest': 
-        latest_images_list = Image.objects.order_by('receive_date').filter(receive_date__range=[date_start, date_end])[:images_per_page]
+        image_list = Image.objects.order_by('receive_date').filter(receive_date__range=[date_start, date_end]).all()
     elif sort_by == 'top': 
-        latest_images_list = Image.objects.order_by('-rating').filter(receive_date__range=[date_start, date_end])[:images_per_page]
+        image_list = Image.objects.order_by('-rating').filter(receive_date__range=[date_start, date_end]).all()
     elif sort_by == 'bottom': 
-        latest_images_list = Image.objects.order_by('rating').filter(receive_date__range=[date_start, date_end])[:images_per_page]
+        image_list = Image.objects.order_by('rating').filter(receive_date__range=[date_start, date_end]).all()
     elif sort_by == 'most_comments': 
-        latest_images_list = Image.objects.all().annotate(num_comments=Count('comment')).order_by('-num_comments').filter(receive_date__range=[date_start, date_end])[:images_per_page]
+        image_list = Image.objects.all().annotate(num_comments=Count('comment')).order_by('-num_comments').filter(receive_date__range=[date_start, date_end]).all()
     elif sort_by == 'least_comments': 
-        latest_images_list = Image.objects.all().annotate(num_comments=Count('comment')).order_by('num_comments').filter(receive_date__range=[date_start, date_end])[:images_per_page]
+        image_list = Image.objects.all().annotate(num_comments=Count('comment')).order_by('num_comments').filter(receive_date__range=[date_start, date_end]).all()
     else:
-        latest_images_list = Image.objects.order_by('-receive_date').filter(receive_date__range=[date_start, date_end])[:images_per_page]
+        image_list = Image.objects.order_by('-receive_date').filter(receive_date__range=[date_start, date_end]).all()
+    
+    paginator = Paginator(image_list, images_per_page)
+    image_page = paginator.get_page(page)
+
     template = loader.get_template('sstvgallery/gallery.html')
     context = {
-        'latest_images_list': latest_images_list,
+        'image_page': image_page,
         'sorting': sort_by,
         'images_per_page': images_per_page,
         'date_start': date_start,

@@ -9,4 +9,4 @@ class ImageSerializer(serializers.Serializer):
     rating = serializers.DecimalField(max_digits=4, decimal_places=2, read_only=True) 
 
     def create(self, validated_data):
-        return Image.objects.create(photo=validated_data.photo, receive_date=datetime.now())
+        return Image.objects.create(photo=validated_data["photo"], receive_date=datetime.now())
