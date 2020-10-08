@@ -50,7 +50,7 @@
 {% if image_page.has_other_pages %}
     <div class="pagination">
         {% if image_page.has_previous %}
-        <a href="{% url 'sort' %}?sorting={{sorting}}&images_per_page={{images_per_page}}&date_start={{date_start}}&date_end={{date_end}}&page={{ image_page.previous_page_number }}">&laquo;</a>
+        <a href="{% url 'sort' %}?sorting={{sorting}}&images_per_page={{images_per_page}}&date_start={% if date_start > '2000-01-01' %}{{date_start}}{%endif%}&date_end={% if date_end < '2999-01-01' %}{{date_end}}{%endif%}&page={{ image_page.previous_page_number }}">&laquo;</a>
     {% else %}
         <a href="#">&laquo;</a>
     {% endif %}
@@ -58,11 +58,11 @@
       {% if image_page.number == i %}
         <a class="active" href="#">{{ i }} </a>
       {% else %}
-        <a href="{% url 'sort' %}?sorting={{sorting}}&images_per_page={{images_per_page}}&date_start={{date_start}}&date_end={{date_end}}&page={{ i }}">{{ i }}</a>
+        <a href="{% url 'sort' %}?sorting={{sorting}}&images_per_page={{images_per_page}}&date_start={% if date_start > '2000-01-01' %}{{date_start}}{%endif%}&date_end={% if date_end < '2999-01-01' %}{{date_end}}{%endif%}&page={{ i }}">{{ i }}</a>
       {% endif %}
     {% endfor %}
     {% if image_page.has_next %}
-        <a href="{% url 'sort' %}?sorting={{sorting}}&images_per_page={{images_per_page}}&date_start={{date_start}}&date_end={{date_end}}&page={{ image_page.next_page_number }}">&raquo;</a>
+        <a href="{% url 'sort' %}?sorting={{sorting}}&images_per_page={{images_per_page}}&date_start={% if date_start > '2000-01-01' %}{{date_start}}{%endif%}&date_end={% if date_end < '2999-01-01' %}{{date_end}}{%endif%}&page={{ image_page.next_page_number }}">&raquo;</a>
     {% else %}
         <a href="#">&raquo;</a>
     {% endif %}

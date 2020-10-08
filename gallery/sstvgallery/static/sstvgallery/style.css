@@ -1,11 +1,11 @@
 html {
-    font-family: 'Helvetica';
+    font-family: 'Verdana';
     background-color: #ffe6a7;
     color: #432818;
 }
 
 body{
-    max-width: 1296px;
+    max-width: 1298px;
     margin: 0 auto;
     padding: .5em 20px;
 }
@@ -21,7 +21,7 @@ body{
     box-shadow: 0 8px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     width: 100%;
-    max-width: 1290;   
+    max-width: 1292;   
 }
 
 h1{
@@ -84,7 +84,7 @@ select{
     margin: .5em 0 0 2em;
 }
 
-/*Navbar and pagination CSS from w3schools*/
+/* Navbar and pagination CSS from w3schools */
 /* Add a black background color to the top navigation */
 .topnav {
     background-color: #432818;
@@ -132,3 +132,4 @@ select{
 .pagination a:hover:not(.active) {
     background-color: #99582a;
 }
+

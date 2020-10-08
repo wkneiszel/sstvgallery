@@ -14,6 +14,8 @@
 
 <img class = 'detail_img' src = '{{ image.photo.url }}' alt='{{ image.id }}'>
 
+{% include 'sstvgallery/share.html' %}
+
 {% if image.votes %}
 <p>Rating : {{ image.rating }}/10</p>
 {% else %}
