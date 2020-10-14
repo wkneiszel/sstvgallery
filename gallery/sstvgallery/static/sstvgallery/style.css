@@ -61,6 +61,12 @@ input[type=submit]{
     box-sizing: border-box;
 }
 
+button{
+    padding: 4px 10px;
+    margin: .5em 0;
+    box-sizing: border-box;
+}
+
 select{
     padding: 4px 10px;
     margin: .5em 0;

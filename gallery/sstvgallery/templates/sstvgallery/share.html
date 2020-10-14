@@ -1,3 +1,11 @@
 {% load static %}
 
-    <a href="https://twitter.com/share?url=https://w9wjk.xyz{{ image.photo.url }}&amp;text=SSTV%20Image%20gallery&amp;hashtags=sstvgallery">Share on Twitter</a>
+<link rel="stylesheet" type="text/css" href="{% static 'sstvgallery/style.css' %}">
+    
+<button type="button">
+    <a href="https://twitter.com/share?url=http://127.0.0.1:8000{{ image.photo.url }}&amp;text=SSTV%20Image%20gallery&amp;hashtags=sstvgallery"><img src="{% static 'sstvgallery/twitter.png' %}" height="24"></a>
+</button>
+
+<button type="button">
+    <a href="https://www.facebook.com/sharer/sharer.php?u=#http://127.0.0.1:8000{{ image.photo.url }}"><img src="{% static 'sstvgallery/facebook.png' %}" height="24"></a>
+</button>
