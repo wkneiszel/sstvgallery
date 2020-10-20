@@ -1,19 +1,20 @@
-from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse, HttpResponseRedirect
-from django.template import loader
-from rest_framework import viewsets
 from .models import Image, Comment
 from .serializers import ImageSerializer
-from rest_framework.decorators import action
+from decimal import Decimal
+from django.core.paginator import Paginator
+from django.db.models import Count
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.template import loader
+from django.urls import reverse
+from rest_framework import viewsets, status, permissions
+from rest_framework.decorators import action, api_view
+from rest_framework.exceptions import ParseError
 from rest_framework.response import Response
 import datetime
-from rest_framework.exceptions import ParseError
 import json
-from django.urls import reverse
-from decimal import Decimal
-from django.db.models import Count
 import random
-from django.core.paginator import Paginator
+
 # Create your views here.
 
 def about(request):
@@ -118,10 +119,10 @@ def sort(request):
     }
     return HttpResponse(template.render(context, request))
 
-
 class ImageViewSet(viewsets.ModelViewSet):
     queryset = Image.objects.all().order_by('receive_date')
     serializer_class = ImageSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     @action(detail=False)
     def most_recent(self, request):
@@ -135,3 +136,4 @@ class ImageViewSet(viewsets.ModelViewSet):
         random_image = random.choice(images)
         serializer = self.get_serializer(random_image)
         return Response(serializer.data)
+        

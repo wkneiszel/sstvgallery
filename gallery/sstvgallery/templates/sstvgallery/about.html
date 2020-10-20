@@ -13,10 +13,10 @@
     <h3>System Diagram</h3>
     <img src="{% static 'sstvgallery/diagram.png' %}" alt="system diagram">
 
-    <h3>DTMF Command Reference:</h3>
-    <table id="dtmfreference" sumamry="A reference of the different DTMF commands for the station and the station's responses">
+    <h3 id="tabledescription">DTMF Command Reference:</h3>
+    <table id="dtmfreference" aria-describedby="tabledescription" sumamry="A reference of the different DTMF commands for the station and the station's responses">
         <tr>
-            <th>DTMF Command</th> <th>Station Response</th>
+            <th scope="col">DTMF Command</th> <th scope="col">Station Response</th>
         </tr>
         <tr>
             <td>1</td><td>Listen for SSTV</td>
