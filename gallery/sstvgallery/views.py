@@ -49,9 +49,8 @@ def vote(request, image_id):
     image = get_object_or_404(Image, pk=image_id)
     comments = image.comment_set.order_by('-comment_date')
     if request.POST['rating']:
-        image.votes = image.votes + 1
         rating = Decimal(request.POST['rating'])
-        image.rating = (image.rating*(image.votes-1)+rating)/image.votes
+        image.vote(rating)
         image.save()
     else:
         return render(request, 'sstvgallery/detail.html',{
