@@ -1,11 +1,16 @@
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'sstvgallery/style.css' %}">
-    
-<button type="button">
-    <a href="https://twitter.com/share?url=http://127.0.0.1:8000{{ image.photo.url }}&amp;text=SSTV%20Image%20gallery&amp;hashtags=sstvgallery"><img src="{% static 'sstvgallery/twitter.png' %}" height="24"></a>
-</button>
 
-<button type="button">
-    <a href="https://www.facebook.com/sharer/sharer.php?u=#http://127.0.0.1:8000{{ image.photo.url }}"><img src="{% static 'sstvgallery/facebook.png' %}" height="24"></a>
-</button>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v8.0" nonce="Vg0uSNSB"></script>
+
+<div class="sharing">
+    
+    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="SSTV Image Gallery" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+    <div class="fb-share-button" data-href="http://127.0.0.1:8000{{ image.photo.url }}" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Finvalid.invalid%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+
+    <script async src="https://telegram.org/js/telegram-widget.js?12" data-telegram-share-url="http://127.0.0.1:8000{{ image.photo.url }}" data-comment="SSTV Image Gallery"></script>
+
+</div>
