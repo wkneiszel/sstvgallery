@@ -71,9 +71,7 @@ def results(request, image_id):
     return HttpResponse (template.render(context, request))
 
 def gallery(request):
-    image_list = Image.objects.order_by('-receive_date').all()
-    paginator = Paginator(image_list, 12)
-    image_page = paginator.get_page(1)
+    image_page = Image.get_page('newest', '1999-04-11', '3000-01-01', 12, 1)
     template = loader.get_template('sstvgallery/gallery.html')
     context = {
         'image_page': image_page,
@@ -86,27 +84,12 @@ def gallery(request):
 
 def sort(request):
     sort_by = request.GET['sorting'] or 'newest'
-    images_per_page = int(request.GET['images_per_page'])
     date_start = request.GET['date_start'] or '1999-04-11'
     date_end = request.GET['date_end'] or '3000-01-01'
+    images_per_page = int(request.GET['images_per_page'])
     page = request.GET['page'] or 1
-    if sort_by == 'newest':
-        image_list = Image.objects.order_by('-receive_date').filter(receive_date__range=[date_start, date_end]).all()
-    elif sort_by == 'oldest': 
-        image_list = Image.objects.order_by('receive_date').filter(receive_date__range=[date_start, date_end]).all()
-    elif sort_by == 'top': 
-        image_list = Image.objects.order_by('-rating').filter(receive_date__range=[date_start, date_end]).all()
-    elif sort_by == 'bottom': 
-        image_list = Image.objects.order_by('rating').filter(receive_date__range=[date_start, date_end]).all()
-    elif sort_by == 'most_comments': 
-        image_list = Image.objects.all().annotate(num_comments=Count('comment')).order_by('-num_comments').filter(receive_date__range=[date_start, date_end]).all()
-    elif sort_by == 'least_comments': 
-        image_list = Image.objects.all().annotate(num_comments=Count('comment')).order_by('num_comments').filter(receive_date__range=[date_start, date_end]).all()
-    else:
-        image_list = Image.objects.order_by('-receive_date').filter(receive_date__range=[date_start, date_end]).all()
     
-    paginator = Paginator(image_list, images_per_page)
-    image_page = paginator.get_page(page)
+    image_page = Image.get_page(sort_by, date_start, date_end, images_per_page, page)
 
     template = loader.get_template('sstvgallery/gallery.html')
     context = {
