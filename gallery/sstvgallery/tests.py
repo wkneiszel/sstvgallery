@@ -1,15 +1,13 @@
-import datetime
-
-from django.test import TestCase
-from rest_framework.test import APIClient
-from django.utils import timezone
-
 from .models import Image, Comment
-import tempfile
 from django.core.files import File
+from django.test import TestCase
+from django.utils import timezone
+from random import randint
+from rest_framework.test import APIClient
+import datetime
 import datetime
 import random
-from random import randint
+import tempfile
 # Create your tests here.
 
 class ImageModelTests(TestCase):
@@ -94,3 +92,9 @@ class ImageModelTests(TestCase):
         self.assertEqual(date_filtered_page.object_list[0].receive_date.date(), datetime.date(2020, 1, 5))
         self.assertEqual(date_filtered_page.object_list[5].receive_date.date(), datetime.date(2020, 1, 10))
         self.assertEqual(len(date_filtered_page.object_list), 6)
+
+        #test default values
+        default_page = Image.get_page()
+        self.assertEqual(default_page.object_list[0].receive_date.date(), datetime.date(2020, 1, 13))
+        self.assertEqual(default_page.has_next(), True)
+        self.assertEqual(len(default_page.object_list), 12)
