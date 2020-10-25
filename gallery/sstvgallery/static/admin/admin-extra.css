@@ -1,0 +1,271 @@
+html {
+    font-family: 'Verdana';
+    background-color: #ffe6a7;
+    color: #432818;
+}
+
+body{
+    max-width: 1298px;
+    margin: 0 auto;
+    padding: .5em 20px;
+}
+
+th, td{
+    padding: .5em;
+    text-align: left;
+}
+
+.gallery_img {
+    padding-top: .5em;
+    box-shadow: 0 8px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.sharing {
+    padding-top: .5em;
+}
+
+.detail_img{
+    padding-top: .5em;
+    box-shadow: 0 8px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 100%;
+    max-width: 1292;   
+}
+
+h1{
+    color: #6f1d1b
+}
+
+h2{
+    color: #6f1d1b
+}
+
+p{
+    color: #432818
+}
+
+.gallery_img:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+input[type=text] {
+    width: 100%;
+    max-width: 1000px;
+    padding: 4px 10px;
+    margin: .5em 0;
+    box-sizing: border-box;
+}
+
+input[type=number] {
+    width: 8em;
+    padding: 4px 10px;
+    margin: .5em 0;
+    box-sizing: border-box;
+}
+
+input[type=submit]{
+    padding: 4px 10px;
+    margin: .5em 0;
+    box-sizing: border-box;
+}
+
+button{
+    padding: 4px 10px;
+    margin: .5em 0;
+    box-sizing: border-box;
+}
+
+select{
+    padding: 4px 10px;
+    margin: .5em 0;
+    box-sizing: border-box;
+}
+
+#commentor_name{
+    width: 8em;
+}
+
+.about{
+    background-color: white;
+    box-shadow: 0 8px 8px 0 rgba(0,0,0,0.2);
+    padding: 4px 10px;
+}
+
+.comment{
+    background-color: white;
+    box-shadow: 0 8px 8px 0 rgba(0,0,0,0.2);
+    padding: 4px 10px;
+    margin: .5em 0 0 2em;
+}
+
+/* Navbar and pagination CSS from w3schools */
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: #432818;
+    overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    color: #ffe6a7;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #99582a;
+    color: #ffe6a7;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+    background-color: #bb9457;
+    color: #6f1d1b;
+}
+
+.pagination {
+    display: inline-block;
+    padding-top: .5em;
+}
+  
+.pagination a {
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+  
+.pagination a.active {
+    background-color: #bb9457;
+    color: #6f1d1b;
+}
+  
+.pagination a:hover:not(.active) {
+    background-color: #99582a;
+}
+
+#header {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    background: #432818;
+    color: #ffe6a7;
+    overflow: hidden;
+}
+
+#header a:link, #header a:visited {
+    color: #ffe6a7;
+}
+
+#header a:focus , #header a:hover {
+    text-decoration: underline;
+}
+
+#branding {
+    float: left;
+}
+
+#branding h1 {
+    padding: 0;
+    margin: 0 20px 0 0;
+    font-weight: 300;
+    font-size: 24px;
+    color:#ffe6a7;
+}
+
+#branding h1, #branding h1 a:link, #branding h1 a:visited {
+    color: #ffe6a7;
+}
+
+#branding h2 {
+    padding: 0 10px;
+    font-size: 14px;
+    margin: -8px 0 8px 0;
+    font-weight: normal;
+    color: #ffe6a7;
+}
+
+#branding a:hover {
+    text-decoration: none;
+}
+
+#user-tools {
+    float: right;
+    padding: 0;
+    margin: 0 0 0 20px;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-align: right;
+}
+
+#user-tools a {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+#user-tools a:focus, #user-tools a:hover {
+    text-decoration: none;
+    border-bottom-color: #bb9457;
+    color: #bb9457;
+}
+
+.module h2, .module caption, .inline-group h2 {
+    margin: 0;
+    padding: 8px;
+    font-weight: 400;
+    font-size: 13px;
+    text-align: left;
+    background: #bb9457;
+    color: #6f1d1b;
+}
+
+a:link, a:visited {
+    color: #6f1d1b;
+    text-decoration: none;
+}
+
+a:focus, a:hover {
+    color: #bb9457;
+}
+
+a:focus {
+    text-decoration: underline;
+}
+
+a img {
+    border: none;
+}
+
+a.section:link, a.section:visited {
+    color: #fff;
+    text-decoration: none;
+}
+
+a.section:focus, a.section:hover {
+    text-decoration: underline;
+}
+
+div.breadcrumbs {
+    background: #99582a;
+    padding: 10px 40px;
+    border: none;
+    font-size: 14px;
+    color: #ffe6a7;
+    text-align: left;
+}
+
+div.breadcrumbs a {
+    color: #ffe6a7;
+}
+
+div.breadcrumbs a:focus, div.breadcrumbs a:hover {
+    color: #fff;
+}

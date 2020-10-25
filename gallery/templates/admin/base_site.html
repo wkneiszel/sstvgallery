@@ -1,4 +1,5 @@
 {% extends "admin/base.html" %}
+{% load static %}
 
 {% block title %}{{ title }} | SSTV Gallery Admin{% endblock %}
 
@@ -7,3 +8,5 @@
 {% endblock %}
 
 {% block nav-global %}{% endblock %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/admin-extra.css" %}" />{% endblock %}
