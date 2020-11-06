@@ -1,70 +1,72 @@
+{% extends 'sstvgallery/base.html' %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'sstvgallery/style.css' %}">
 
-<h1>SSTV Gallery</h1>
+{% block content %}
+    <h1>SSTV Gallery</h1>
 
-<div class="topnav">
-    <a class="active" href="{% url 'gallery' %}">Gallery</a>
-    <a href="{% url 'about' %}">About</a>
-</div>
+    <div class="topnav">
+        <a class="active" href="{% url 'gallery' %}">Gallery</a>
+        <a href="{% url 'about' %}">About</a>
+    </div>
 
-<form action={% url 'sort' %}>
-    <label for="sorting">Sort by</label>
-    <select id="sorting" name="sorting">
-        <option value="newest" {% if sorting == 'newest' %} selected {% endif %}>Date Received: Newest First</option>
-        <option value="oldest" {% if sorting == 'oldest' %} selected {% endif %}>Date Received: Oldest First</option>
-        <option value="top" {% if sorting == 'top' %} selected {% endif %}>Rating: Highest First</option>
-        <option value="bottom" {% if sorting == 'bottom' %} selected {% endif %}>Rating: Lowest First</option>
-        <option value="most_comments" {% if sorting == 'most_comments' %} selected {% endif %}>Number of Comments: Highest First</option>
-        <option value="least_comments" {% if sorting == 'least_comments' %} selected {% endif %}>Number of Comments: Lowest First</option>
-    </select>
+    <form action={% url 'sort' %}>
+        <label for="sorting">Sort by</label>
+        <select id="sorting" name="sorting">
+            <option value="newest" {% if sorting == 'newest' %} selected {% endif %}>Date Received: Newest First</option>
+            <option value="oldest" {% if sorting == 'oldest' %} selected {% endif %}>Date Received: Oldest First</option>
+            <option value="top" {% if sorting == 'top' %} selected {% endif %}>Rating: Highest First</option>
+            <option value="bottom" {% if sorting == 'bottom' %} selected {% endif %}>Rating: Lowest First</option>
+            <option value="most_comments" {% if sorting == 'most_comments' %} selected {% endif %}>Number of Comments: Highest First</option>
+            <option value="least_comments" {% if sorting == 'least_comments' %} selected {% endif %}>Number of Comments: Lowest First</option>
+        </select>
 
-    <label for="images_per_page">Images per page</label>
-    <select id="images_per_page" name="images_per_page">
-        <option value=12 {% if images_per_page == 12 %} selected {% endif %}>12</option>
-        <option value=24 {% if images_per_page == 24 %} selected {% endif %}>24</option>
-        <option value=48 {% if images_per_page == 48 %} selected {% endif %}>48</option>
-    </select>
-    
-    <label for="date_start">Images after</label>
-    <input type="date" id="date_start" name="date_start" {% if date_start > '2000-01-01' %} value={{date_start}} {%endif%}>
+        <label for="images_per_page">Images per page</label>
+        <select id="images_per_page" name="images_per_page">
+            <option value=12 {% if images_per_page == 12 %} selected {% endif %}>12</option>
+            <option value=24 {% if images_per_page == 24 %} selected {% endif %}>24</option>
+            <option value=48 {% if images_per_page == 48 %} selected {% endif %}>48</option>
+        </select>
+        
+        <label for="date_start">Images after</label>
+        <input type="date" id="date_start" name="date_start" {% if date_start > '2000-01-01' %} value={{date_start}} {%endif%}>
 
-    <label for="date_end">and before</label>
-    <input type="date" id="date_end" name="date_end" {% if date_end < '2999-01-01' %} value={{date_end}} {%endif%}>
+        <label for="date_end">and before</label>
+        <input type="date" id="date_end" name="date_end" {% if date_end < '2999-01-01' %} value={{date_end}} {%endif%}>
 
-    <input type="hidden" value={{ image_page.number }} id="page" name="page">
+        <input type="hidden" value={{ image_page.number }} id="page" name="page">
 
-    <input type="submit">
-</form>
+        <input type="submit">
+    </form>
 
-{% if image_page %}
-    {% for image in image_page.object_list %}   
-        <a href="{% url 'detail' image.id %}"><img class="gallery_img" src="{{ image.photo.url }}" alt="{{image.id}}"></a>
-    {% endfor %}
-{% else %}
-    <p>No images are available.</p>
-{% endif %}
-
-<br>
-<!--I referenced https://simpleisbetterthancomplex.com/tutorial/2016/08/03/how-to-paginate-with-django.html to write this pagination code-->
-{% if image_page.has_other_pages %}
-    <div class="pagination">
-        {% if image_page.has_previous %}
-        <a href="{% url 'sort' %}?sorting={{sorting}}&images_per_page={{images_per_page}}&date_start={% if date_start > '2000-01-01' %}{{date_start}}{%endif%}&date_end={% if date_end < '2999-01-01' %}{{date_end}}{%endif%}&page={{ image_page.previous_page_number }}">&laquo;</a>
+    {% if image_page %}
+        {% for image in image_page.object_list %}   
+            <a href="{% url 'detail' image.id %}"><img class="gallery_img" src="{{ image.photo.url }}" alt="{{image.id}}"></a>
+        {% endfor %}
     {% else %}
-        <a href="#">&laquo;</a>
+        <p>No images are available.</p>
     {% endif %}
-    {% for i in image_page.paginator.page_range %}
-      {% if image_page.number == i %}
-        <a class="active" href="#">{{ i }} </a>
-      {% else %}
-        <a href="{% url 'sort' %}?sorting={{sorting}}&images_per_page={{images_per_page}}&date_start={% if date_start > '2000-01-01' %}{{date_start}}{%endif%}&date_end={% if date_end < '2999-01-01' %}{{date_end}}{%endif%}&page={{ i }}">{{ i }}</a>
-      {% endif %}
-    {% endfor %}
-    {% if image_page.has_next %}
-        <a href="{% url 'sort' %}?sorting={{sorting}}&images_per_page={{images_per_page}}&date_start={% if date_start > '2000-01-01' %}{{date_start}}{%endif%}&date_end={% if date_end < '2999-01-01' %}{{date_end}}{%endif%}&page={{ image_page.next_page_number }}">&raquo;</a>
-    {% else %}
-        <a href="#">&raquo;</a>
+
+    <br>
+    <!--I referenced https://simpleisbetterthancomplex.com/tutorial/2016/08/03/how-to-paginate-with-django.html to write this pagination code-->
+    {% if image_page.has_other_pages %}
+        <div class="pagination">
+            {% if image_page.has_previous %}
+            <a href="{% url 'sort' %}?sorting={{sorting}}&images_per_page={{images_per_page}}&date_start={% if date_start > '2000-01-01' %}{{date_start}}{%endif%}&date_end={% if date_end < '2999-01-01' %}{{date_end}}{%endif%}&page={{ image_page.previous_page_number }}">&laquo;</a>
+        {% else %}
+            <a href="#">&laquo;</a>
+        {% endif %}
+        {% for i in image_page.paginator.page_range %}
+        {% if image_page.number == i %}
+            <a class="active" href="#">{{ i }} </a>
+        {% else %}
+            <a href="{% url 'sort' %}?sorting={{sorting}}&images_per_page={{images_per_page}}&date_start={% if date_start > '2000-01-01' %}{{date_start}}{%endif%}&date_end={% if date_end < '2999-01-01' %}{{date_end}}{%endif%}&page={{ i }}">{{ i }}</a>
+        {% endif %}
+        {% endfor %}
+        {% if image_page.has_next %}
+            <a href="{% url 'sort' %}?sorting={{sorting}}&images_per_page={{images_per_page}}&date_start={% if date_start > '2000-01-01' %}{{date_start}}{%endif%}&date_end={% if date_end < '2999-01-01' %}{{date_end}}{%endif%}&page={{ image_page.next_page_number }}">&raquo;</a>
+        {% else %}
+            <a href="#">&raquo;</a>
+        {% endif %}
+    </div>
     {% endif %}
-  </div>
-{% endif %}
+{% endblock %}

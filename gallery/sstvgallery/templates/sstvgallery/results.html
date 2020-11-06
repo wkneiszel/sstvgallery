@@ -1,29 +1,30 @@
+{% extends 'sstvgallery/base.html' %}
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'sstvgallery/style.css' %}">
+{% block content %}
+    <h1>SSTV Gallery</h1>
 
-<h1>SSTV Gallery</h1>
+    <div class="topnav">
+        <a href="{% url 'gallery' %}">Gallery</a>
+        <a href="{% url 'about' %}">About</a>
+    </div>
 
-<div class="topnav">
-    <a href="{% url 'gallery' %}">Gallery</a>
-    <a href="{% url 'about' %}">About</a>
-</div>
+    <h2>Image Received on {{ image.receive_date }}</h2>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<h2>Image Received on {{ image.receive_date }}</h2>
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <img class = 'detail_img' src = '{{ image.photo.url }}' alt='{{ image.id }}'>
 
-<img class = 'detail_img' src = '{{ image.photo.url }}' alt='{{ image.id }}'>
+    <p><strong>Thank you for voting</strong></p>
+    <p>Rating : {{ image.rating }}/10</p>
 
-<p><strong>Thank you for voting</strong></p>
-<p>Rating : {{ image.rating }}/10</p>
+    <form action="{% url 'comment' image.id %}" method="post">
+        {% csrf_token %}
+        <input type="text" maxlength="50" name="commentor" id="commentor_name" placeholder="Name...">
+        <input type="text" name="comment_text" id="comment" placeholder="Comment text...">
+        <input type="submit" value="Submit Comment">
+    </form>
 
-<form action="{% url 'comment' image.id %}" method="post">
-    {% csrf_token %}
-    <input type="text" maxlength="50" name="commentor" id="commentor_name" placeholder="Name...">
-    <input type="text" name="comment_text" id="comment" placeholder="Comment text...">
-    <input type="submit" value="Submit Comment">
-</form>
-
-{% for comment in comments %}
-    <div class="comment"><strong>{{comment.commentor}}</strong> <em>({{comment.comment_date}})</em>: {{comment.comment_text}}</div>
-{% endfor %}
+    {% for comment in comments %}
+        <div class="comment"><strong>{{comment.commentor}}</strong> <em>({{comment.comment_date}})</em>: {{comment.comment_text}}</div>
+    {% endfor %}
+{% endblock %}
