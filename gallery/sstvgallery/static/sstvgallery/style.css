@@ -32,6 +32,10 @@ th, td{
 
 .sharing {
     padding-top: .5em;
+    vertical-align: bottom;
+}
+.share_button {
+    vertical-align: top;
 }
 
 .detail_img{
